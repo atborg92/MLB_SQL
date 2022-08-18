@@ -1,4 +1,5 @@
-#Data cleanup:
+#DATA CLEANING:
+
 # Added new column opp_id that references team id in misc table so that it can be used as a foreign key.
 ALTER TABLE 2021_giants_batting ADD opp_id int;
 
@@ -37,7 +38,7 @@ FROM 2021_giants_batting;
 #Adding Pythagorean win / loss percentage. This is a commonly used baseball statistic that examines run differential to estimate expected win-loss record. 
 #This table shows pythagorean (expected) win rate, actual win rate, and percent to which the team outperformed or underperformed their pythagorean win rate.
 SELECT
-	MONTHNAME(bat.date) AS Month,
+    MONTHNAME(bat.date) AS Month,
     SUM(CASE WHEN bat.r > pitch.r THEN 1 ELSE 0 END) AS Wins,
     SUM(CASE WHEN bat.r < pitch.r THEN 1 ELSE 0 END) AS Losses,
     SUM(bat.r) AS Runs_Scored,
@@ -51,8 +52,8 @@ JOIN 2021_giants_pitching pitch ON bat.game = pitch.game
 GROUP BY 1
 UNION
 SELECT
-	'Total',
-	SUM(CASE WHEN bat.r > pitch.r THEN 1 ELSE 0 END),
+    'Total',
+    SUM(CASE WHEN bat.r > pitch.r THEN 1 ELSE 0 END),
     SUM(CASE WHEN bat.r < pitch.r THEN 1 ELSE 0 END),
     SUM(bat.r) AS Runs_Scored,
     SUM(pitch.r) AS Runs_Allowed,
