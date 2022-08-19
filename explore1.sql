@@ -1,5 +1,19 @@
 #DATA CLEANING:
 
+# Converted date column from Datetime to Date:
+
+ALTER TABLE 2021_giants_batting
+ADD date_trunc date;
+
+UPDATE 2021_giants_batting
+SET date_trunc = CAST(date AS date);
+
+ALTER TABLE 2021_giants_batting
+DROP COLUMN date;
+
+alter table 2021_giants_batting
+RENAME COLUMN date_trunc TO date;
+
 # Added new column opp_id that references team id in misc table so that it can be used as a foreign key.
 ALTER TABLE 2021_giants_batting ADD opp_id int;
 
